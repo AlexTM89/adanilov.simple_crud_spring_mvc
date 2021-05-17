@@ -31,7 +31,7 @@ public class PersonDao {
     }
 
     public void save(Person person) {
-        int id = jdbcTemplate.query("select max(id) + 1 id from psn.person;", new BeanPropertyRowMapper<>(int.class)).stream().findAny().orElse(0);
+        int id = jdbcTemplate.queryForObject("select max(id) + 1 id from psn.person;", Integer.class);
         person.setId(id);
 
         jdbcTemplate.update("insert into psn.person values (?, ?, ?, ?)", id, person.getName(), person.getAge(), person.getEmail());
